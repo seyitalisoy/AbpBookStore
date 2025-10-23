@@ -1,1 +1,116 @@
-<p>book works!</p>
+
+
+<div class="card">
+  <!-- Card Header - Add Button -->
+  <div class="card-header">
+    <div class="row">
+      <div class="col col-md-6">
+        <h5 class="card-title">
+          {{ '::Menu:Books' | abpLocalization }}
+        </h5>
+      </div>
+      <div class="text-end col col-md-6">
+        <!-- Add the "new book" button here -->
+        <div class="text-lg-end pt-2">
+          <button id="create" class="btn btn-primary" type="button" (click)="createBook()">
+            <i class="fa fa-plus me-1"></i>
+            <span>{{ "::NewBook" | abpLocalization }}</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- Table-->
+  <div class="card-body">
+    <ngx-datatable [rows]="book.items" [count]="book.totalCount" default>
+      <!-- Actions (Update-Delete) -->
+      <ngx-datatable-column [name]="'::Actions' | abpLocalization" [maxWidth]="150" [sortable]="false">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <div ngbDropdown container="body" class="d-inline-block">
+            <button class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+              ngbDropdownToggle>
+              <i class="fa fa-cog me-1"></i>{{ '::Actions' | abpLocalization }}
+            </button>      
+            <div ngbDropdownMenu>
+              <!-- Update -->
+              <button ngbDropdownItem (click)="editBook(row.id)">
+                {{ '::Edit' | abpLocalization }}
+              </button>
+              <!-- Delete -->
+              <button ngbDropdownItem (click)="deleteBook(row.id)">
+                {{ '::Delete' | abpLocalization }}
+              </button>
+            </div>
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+      <!-- Properties with localizations -->
+      <ngx-datatable-column [name]="convertToLocal('::Name')" prop="name"></ngx-datatable-column>
+      <ngx-datatable-column [name]="convertToLocal('::Type')" prop="type">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ '::Enum:BookType.' + row.type | abpLocalization }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column [name]="convertToLocal('::PublishDate')" prop="publishDate">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row.publishDate | date }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column [name]="convertToLocal('::Price')" prop="price">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <!-- {{ row.price | currency }} -->
+          {{ row.price | currency:'TRY':'symbol':'1.2-2':'tr' }}
+
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </div>
+
+  <!-- Adding / Updating Form-->
+  <div *ngIf="isModalOpen">
+    <!-- Form Title -->
+    <div #abpHeader>
+      <h3 *ngIf="!selectedBook">{{ '::NewBook' | abpLocalization }}</h3>
+      <h3 *ngIf="selectedBook">{{ '::UpdatedBook' | abpLocalization }}</h3>
+    </div>
+    <!-- Form Body -->
+    <div #abpBody>
+      <form [formGroup]="form" (ngSubmit)="save()">
+        <div class="mt-2">
+          <label for="book-name">{{'::Name' | abpLocalization}}</label><span> * </span>
+          <input type="text" id="book-name" class="form-control" formControlName="name" autofocus />
+        </div>
+        <div class="mt-2">
+          <label for="book-price">{{'::Price' | abpLocalization}}</label><span> * </span>
+          <input type="number" id="book-price" class="form-control" formControlName="price" />
+        </div>
+        <!-- Enum -> Options -->
+        <div class="mt-2">
+          <label for="book-type">{{'::Type' | abpLocalization}}</label><span> * </span>
+          <select class="form-control" id="book-type" formControlName="type">
+            <option [ngValue]="null">Select a book type</option>
+            <option [ngValue]="type.value" *ngFor="let type of bookTypes"> {{ '::Enum:BookType.' + type.value |
+              abpLocalization }}</option>
+          </select>
+        </div>
+        <div class="mt-2">
+          <label>{{'::PublishDate' | abpLocalization}}</label><span> * </span>
+          <input type="date" id="book-publish-date" class="form-control" formControlName="publishDate" />
+        </div>
+      </form>
+    </div>
+    <!-- Form Footer -->
+    <div #abpFooter>
+      <!-- Form Close -->
+      <button type="button" class="btn btn-secondary" (click)="closeModal()">
+        {{ '::Close' | abpLocalization }}
+      </button>
+      <!--Save Button-->
+      <button class="btn btn-primary" (click)="save()">
+        <i class="fa fa-check mr-1"></i>
+        {{ '::Save' | abpLocalization }}
+      </button>
+    </div>
+  </div>
+</div>

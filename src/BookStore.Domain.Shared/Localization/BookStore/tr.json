@@ -64,6 +64,11 @@
     "Enum:BookType.5": "Korku",
     "Enum:BookType.6": "Bilim",
     "Enum:BookType.7": "Bilim Kurgu",
-    "Enum:BookType.8": "Şiir"
+    "Enum:BookType.8": "Şiir",
+    "Permission:BookStore": "Kitapçı",
+    "Permission:Books": "Kitap Yönetimi",
+    "Permission:Books.Create": "Yeni kitap oluşturma",
+    "Permission:Books.Edit": "Kitap bilgisi düzenleme",
+    "Permission:Books.Delete": "Kitap silme"
   }
 }

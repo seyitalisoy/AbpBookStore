@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ListService, LocalizationPipe, LocalizationService, PagedResultDto } from '@abp/ng.core';
+import { ListService, LocalizationPipe, LocalizationService, PagedResultDto,PermissionDirective } from '@abp/ng.core';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { BookDto, BookService, BookType } from 'src/app/proxy/books';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
@@ -15,7 +15,8 @@ import { ConfirmationService, Confirmation } from '@abp/ng.theme.shared';
     NgxDatatableModule,
     LocalizationPipe,
     ReactiveFormsModule,
-    NgbDropdownModule
+    NgbDropdownModule,
+    PermissionDirective
   ],
   templateUrl: './book.html',
   styleUrls: ['./book.scss'],

@@ -69,6 +69,8 @@
     "Permission:Books": "Kitap Yönetimi",
     "Permission:Books.Create": "Yeni kitap oluşturma",
     "Permission:Books.Edit": "Kitap bilgisi düzenleme",
-    "Permission:Books.Delete": "Kitap silme"
+    "Permission:Books.Delete": "Kitap silme",
+    "BookStore:00001": "Aynı isimle bir yazar mevcut: {name}"
+
   }
 }

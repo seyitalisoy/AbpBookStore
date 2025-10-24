@@ -70,7 +70,11 @@
     "Permission:Books.Create": "Yeni kitap oluşturma",
     "Permission:Books.Edit": "Kitap bilgisi düzenleme",
     "Permission:Books.Delete": "Kitap silme",
-    "BookStore:00001": "Aynı isimle bir yazar mevcut: {name}"
+    "BookStore:00001": "Aynı isimle bir yazar mevcut: {name}",
+    "Permission:Authors": "Yazar Yönetimi",
+    "Permission:Authors.Create": "Yazar oluştur",
+    "Permission:Authors.Edit": "Yazar  düzenle",
+    "Permission:Authors.Delete": "Yazar sil"
 
   }
 }

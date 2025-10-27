@@ -74,7 +74,13 @@
     "Permission:Authors": "Yazar Yönetimi",
     "Permission:Authors.Create": "Yazar oluştur",
     "Permission:Authors.Edit": "Yazar  düzenle",
-    "Permission:Authors.Delete": "Yazar sil"
+    "Permission:Authors.Delete": "Yazar sil",
+    "Menu:Authors": "Yazarlar",
+    "Authors": "Yazarlar",
+    "AuthorDeletionConfirmationMessage": "Yazarı silmek istediğinize emin misiniz '{0}'?",
+    "BirthDate": "Doğum tarihi",
+    "NewAuthor": "Yeni yazar",
+    "UpdatedAuthor": "Yazar Güncelle"
 
   }
 }

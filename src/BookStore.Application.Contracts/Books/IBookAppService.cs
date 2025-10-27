@@ -15,6 +15,6 @@ namespace BookStore.Books
         PagedAndSortedResultRequestDto, //Used for paging/sorting
         CreateUpdateBookDto> //Used to create/update a book
     {
-
+        Task<ListResultDto<AuthorLookupDto>> GetAuthorLookupAsync();
     }
 }

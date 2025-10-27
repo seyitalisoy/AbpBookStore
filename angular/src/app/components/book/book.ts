@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ListService, LocalizationPipe, LocalizationService, PagedResultDto,PermissionDirective } from '@abp/ng.core';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { BookDto, BookService, BookType } from 'src/app/proxy/books';
+import { AuthorLookupDto, BookDto, BookService, BookType } from 'src/app/proxy/books';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationService, Confirmation } from '@abp/ng.theme.shared';
+import { map, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-book',
@@ -28,11 +29,15 @@ export class BookComponent implements OnInit {
   form: FormGroup;
   bookTypes: { key: string; value: number }[] = [];
   selectedBook: BookDto;
+  authors$: Observable<AuthorLookupDto[]>;
+
 
   constructor(private listService: ListService, private bookService: BookService,
     private localization: LocalizationService, private formBuilder: FormBuilder,
     private confirmation: ConfirmationService
-  ) { }
+  ) { 
+     this.authors$ = bookService.getAuthorLookup().pipe(map((r) => r.items));
+  }
 
   ngOnInit(): void {
     const bookStreamCreator = (query) => this.bookService.getList(query);
@@ -80,14 +85,21 @@ export class BookComponent implements OnInit {
     });
   }
   //form builder with validations
-  buildForm() {
-    this.form = this.formBuilder.group({
-      name: ['', Validators.required],
-      type: [null, Validators.required],
-      publishDate: [null, Validators.required],
-      price: [null, Validators.required]
-    });
-  }
+ buildForm() {
+  this.form = this.formBuilder.group({
+    authorId: [this.selectedBook?.authorId || null, Validators.required],
+    name: [this.selectedBook?.name || '', Validators.required],
+    type: [this.selectedBook?.type ?? null, Validators.required],
+    publishDate: [
+      this.selectedBook?.publishDate
+        ? new Date(this.selectedBook.publishDate).toISOString().substring(0, 10)
+        : null,
+      Validators.required
+    ],
+    price: [this.selectedBook?.price ?? null, Validators.required]
+  });
+}
+
 
   closeModal() {
     this.selectedBook = undefined;
